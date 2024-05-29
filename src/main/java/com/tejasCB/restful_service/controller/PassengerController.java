@@ -29,7 +29,6 @@ public class PassengerController {
 
     @GetMapping("/{id}/tickets")
     public ResponseEntity<?> getUserTickets(@PathVariable long id) {
-        System.out.println("id ==>  "+id);
         if (!ticketService.checkIfPassengerExists(id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Passenger with ID " + id + " not found.");
         }
@@ -51,7 +50,6 @@ public class PassengerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUser(@PathVariable long id) {
-        System.out.println("id -- "+id);
         if (!ticketService.checkIfPassengerExists(id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Passenger with ID " + id + " not found.");
         }

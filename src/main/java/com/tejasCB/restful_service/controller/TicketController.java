@@ -32,7 +32,6 @@ public class TicketController {
 
    @PostMapping("/purchase")
    public ResponseEntity<Ticket> purchaseTicket(@RequestBody Passenger passenger) {
-       System.out.println("passenger ==>"+passenger);
        Ticket ticket = ticketService.purchaseTicket(passenger);
        return ResponseEntity.status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON)
                .body(ticket);
@@ -45,7 +44,6 @@ public class TicketController {
      */
     @GetMapping("/{pnr}")
     public ResponseEntity<?> getTicketDetails(@PathVariable long pnr) {
-        System.out.println("pnr ==>"+pnr);
         if (!ticketService.checkIfPnrExists(pnr)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("PNR not found: " + pnr);
         }
@@ -67,7 +65,6 @@ public class TicketController {
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are only 2 sections A & B");
        }
        List<Passenger> passengers = ticketService.viewSeats(section);
-       //only getting the passenger details not their seats
        return ResponseEntity.ok(passengers);
    }
 
@@ -79,7 +76,6 @@ public class TicketController {
      */
     @PutMapping("/modify/{pnr}")
     public ResponseEntity<?> modifySeat(@PathVariable long pnr, @RequestBody String newSeat) {
-        System.out.println("pnr , new Seat ==> " + pnr + " " + newSeat);
         if (!ticketService.checkIfPnrExists(pnr)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("PNR not found: " + pnr);
         }
