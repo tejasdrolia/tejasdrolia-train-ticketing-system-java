@@ -36,7 +36,6 @@ public class TicketService {
     public Ticket purchaseTicket(Passenger passenger) {
         // Generate a new ID if the passenger does not provide one
         long ID;
-        System.out.println("Step1 ");
         if (passenger.getId() == 0) {
             ID = idCounter.incrementAndGet();
             passenger.setId(ID);

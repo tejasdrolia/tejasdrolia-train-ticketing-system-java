@@ -13,6 +13,9 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+/**
+ * Test class for PassengerService.
+ */
 public class PassengerServiceTest {
 
     @Mock
@@ -23,6 +26,10 @@ public class PassengerServiceTest {
 
     private Map<Long, Passenger> passengerDetails;
 
+    /**
+     * Sets up the test environment before each test method.
+     * Initializes mocks and sample passenger data.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -34,12 +41,16 @@ public class PassengerServiceTest {
         when(ticketService.getPassengerDetails()).thenReturn(passengerDetails);
     }
 
+    /**
+     * Tests the getPassenger method of PassengerService.
+     * Verifies that a passenger is correctly retrieved by their ID and that null is returned for a non-existent passenger.
+     */
     @Test
     void getPassengerTest() {
         Passenger passenger = passengerService.getPassenger(1L);
         assertNotNull(passenger);
         assertEquals("John", passenger.getFirstName());
-        assertEquals(30,passenger.getAge());
+        assertEquals(30, passenger.getAge());
 
         Passenger nonExistentPassenger = passengerService.getPassenger(3L);
         assertNull(nonExistentPassenger);
