@@ -1,6 +1,6 @@
 # Train Ticketing System
 
-This project is a Java-based train ticketing system, created as part of a technical assessment. It includes several API endpoints for managing tickets and user data.
+This project is a Java-based train ticketing system, developed as part of a technical assessment. It features several API endpoints for managing tickets and user data. Additionally, the project includes unit test cases to ensure the functionality and reliability of critical application components.
 
 ## Features
 
