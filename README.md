@@ -8,7 +8,6 @@ This project is a Java-based train ticketing system, created as part of a techni
 - Cancel train tickets
 - View receipt details
 - View users by section
-- Remove a user
 - Modify a user's seat
 
 ## Technologies Used
