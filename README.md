@@ -94,11 +94,11 @@ Here is a list of the API endpoints provided by the application:
 
 
 
-### View Users by Section
+### View Passengers by Section
 
 - **URL:** `/api/ticket/view/{section}`
 - **Method:** `GET`
-- **Description:** View users on the basis of section.
+- **Description:** View passengers on the basis of section.
 - **Response:**
  Array of Passenger Objects
 
