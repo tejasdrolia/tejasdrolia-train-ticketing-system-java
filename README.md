@@ -15,7 +15,6 @@ This project is a Java-based train ticketing system, created as part of a techni
 
 - Java 17
 - Spring Boot 3.3.0
-- JUnit 5 for testing
 
 ## Prerequisites
 
