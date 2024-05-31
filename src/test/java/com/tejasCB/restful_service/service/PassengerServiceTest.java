@@ -19,10 +19,10 @@ import static org.mockito.Mockito.when;
 public class PassengerServiceTest {
 
     @Mock
-    private TicketService ticketService;
+    private TicketService ticketService;//Inserting instances of TicketService for mocking
 
     @InjectMocks
-    private PassengerService passengerService;
+    private PassengerService passengerService;//Injecting TicketService into PassengerService Instance
 
     private Map<Long, Passenger> passengerDetails;
 
@@ -51,6 +51,9 @@ public class PassengerServiceTest {
         assertNotNull(passenger);
         assertEquals("John", passenger.getFirstName());
         assertEquals(30, passenger.getAge());
+        assertEquals("Doe",passenger.getLastName());
+        assertEquals("Male",passenger.getGender());
+        assertEquals("john.doe@example.com",passenger.getEmail());
 
         Passenger nonExistentPassenger = passengerService.getPassenger(3L);
         assertNull(nonExistentPassenger);

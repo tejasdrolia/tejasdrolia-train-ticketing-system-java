@@ -109,7 +109,7 @@ public class TicketServiceTest {
      * Verifies that passengers in a specific section can be viewed correctly.
      */
     @Test
-    void ViewSeatsTest() {
+    void viewSeatsTest() {
         Passenger passenger = new Passenger("John", "Doe", 30, "Male", 0, "john.doe@example.com");
         ticketService.purchaseTicket(passenger);
         List<Passenger> passengersInA = ticketService.viewSeats("A");
@@ -123,7 +123,7 @@ public class TicketServiceTest {
      * Verifies that the existence of a passenger can be checked correctly.
      */
     @Test
-    void testCheckIfPassengerExists() {
+    void checkIfPassengerExistsTest() {
         Passenger passenger = new Passenger("John", "Doe", 30, "Male", 0, "john.doe@example.com");
         ticketService.purchaseTicket(passenger);
 

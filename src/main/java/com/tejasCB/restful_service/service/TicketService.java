@@ -10,13 +10,13 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class TicketService {
-    private Map<Long, Ticket> ticketRepository = new HashMap<>();
-    private Map<Long, List<Long>> passengerTickets = new HashMap<>();
-    public Map<Long, Passenger> PassengerDetails = new HashMap<>();
-    private Set<String> availableSeatsA = new HashSet<>();
-    private Set<String> availableSeatsB = new HashSet<>();
-    private long ticketCounter = 1;
-    private AtomicLong idCounter = new AtomicLong();
+    private Map<Long, Ticket> ticketRepository = new HashMap<>();//PNR - Ticket
+    private Map<Long, List<Long>> passengerTickets = new HashMap<>();// passenger id - List of Pnrs
+    public Map<Long, Passenger> PassengerDetails = new HashMap<>();// passenger id - Passenger info
+    private final Set<String> availableSeatsA = new HashSet<>();
+    private final Set<String> availableSeatsB = new HashSet<>();
+    private long ticketCounter = 1; // for generating unique PNR's
+    private long idCounter = 1; // for generating unique idCounter
 
 
     public TicketService() {
@@ -37,7 +37,7 @@ public class TicketService {
         // Generate a new ID if the passenger does not provide one
         long ID;
         if (passenger.getId() == 0) {
-            ID = idCounter.incrementAndGet();
+            ID = idCounter++;
             passenger.setId(ID);
             PassengerDetails.put(passenger.getId(),passenger);
         }
@@ -101,14 +101,16 @@ public class TicketService {
 
     /**
      * Cancels a ticket based on its PNR.
+     * DELETE Request
      * @param pnr the PNR of the ticket to be cancelled
      */
     public void cancelTicket(long pnr) {
         try {
-            Ticket ticket = ticketRepository.remove(pnr);
+            Ticket ticket = ticketRepository.get(pnr);
             if (ticket == null) {
                 throw new IllegalArgumentException("PNR not found: " + pnr);
             }
+            ticketRepository.remove(pnr);
 
             List<Long> pnrs = passengerTickets.get(ticket.getPassenger().getId());
             if (pnrs != null) {
@@ -142,8 +144,8 @@ public class TicketService {
 
             freeSeat(ticket.getSeat());
             occupySeat(newSeat);
-
-            ticket = new Ticket(ticket.getPnr(), ticket.getPassenger(), ticket.getFrom(), ticket.getTo(), ticket.getPrice(), newSeat);
+            ticket.setSeat(newSeat);
+            //ticket = new Ticket(ticket.getPnr(), ticket.getPassenger(), ticket.getFrom(), ticket.getTo(), ticket.getPrice(), newSeat);
             ticketRepository.put(pnr, ticket);
             return ticket;
         } catch (IllegalArgumentException e) {

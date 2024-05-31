@@ -9,9 +9,8 @@ public class Passenger {
     private String lastName;
     private int age;
     private String gender;
-    private String email;
-    private long id;
-    private String seat;
+    private final String email;
+    private  long id;
 
     /**
      * Constructs a new Passenger with the specified details.

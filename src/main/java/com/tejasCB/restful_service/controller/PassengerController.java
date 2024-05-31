@@ -55,11 +55,6 @@ public class PassengerController {
         }
 
         Passenger passenger = passengerService.getPassenger(id);
-        if (passenger == null) {
-            String message = "No passenger found with ID " + id;
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
-        }
-
         return ResponseEntity.status(HttpStatus.FOUND).body(passenger);
     }
 

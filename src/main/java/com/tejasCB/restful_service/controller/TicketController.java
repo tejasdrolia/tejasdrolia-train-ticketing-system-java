@@ -31,7 +31,10 @@ public class TicketController {
      */
 
    @PostMapping("/purchase")
-   public ResponseEntity<Ticket> purchaseTicket(@RequestBody Passenger passenger) {
+   public ResponseEntity<?> purchaseTicket(@RequestBody Passenger passenger) {
+       if (passenger.getId() != 0 && !ticketService.checkIfPassengerExists(passenger.getId()) ){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Passenger with ID " + passenger.getId() + " not found.");
+       }
        Ticket ticket = ticketService.purchaseTicket(passenger);
        return ResponseEntity.status(HttpStatus.CREATED).contentType(MediaType.APPLICATION_JSON)
                .body(ticket);
@@ -60,7 +63,6 @@ public class TicketController {
 
    @GetMapping("/view/{section}")
    public ResponseEntity<?> viewSeats(@PathVariable String section) {
-       section = section.toUpperCase();
        if (!section.equals("A") &&  !section.equals("B")) {
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are only 2 sections A & B");
        }

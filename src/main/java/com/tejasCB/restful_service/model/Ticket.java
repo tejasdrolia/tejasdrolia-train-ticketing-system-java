@@ -59,4 +59,9 @@ public class Ticket {
         return seat;
     }
 
+    public void setSeat(String seat)
+    {
+        this.seat = seat;
+    }
+
 }
