@@ -63,6 +63,7 @@ public class TicketController {
 
    @GetMapping("/view/{section}")
    public ResponseEntity<?> viewSeats(@PathVariable String section) {
+       section = section.toUpperCase();
        if (!section.equals("A") &&  !section.equals("B")) {
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are only 2 sections A & B");
        }
