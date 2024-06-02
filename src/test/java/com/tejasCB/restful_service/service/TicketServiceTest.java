@@ -35,7 +35,7 @@ public class TicketServiceTest {
      * Verifies that a ticket is successfully purchased and associated methods work as expected.
      */
     @Test
-    void purchaseTicketTest() {
+    void testPurchaseTicket() {
         Passenger passenger = new Passenger("John", "Doe", 30, "Male", 0,"john.doe@example.com");
         Ticket ticket = ticketService.purchaseTicket(passenger);
 
@@ -50,7 +50,7 @@ public class TicketServiceTest {
      * Verifies that ticket details can be retrieved correctly.
      */
     @Test
-    void getTicketDetailTest() {
+    void testGetTicketDetail() {
         Passenger passenger = new Passenger("Jane", "Doe", 28, "Female", 0, "jane.doe@example.com");
         Ticket purchasedTicket = ticketService.purchaseTicket(passenger);
         Ticket ticket = ticketService.getTicketDetail(purchasedTicket.getPnr());
@@ -64,7 +64,7 @@ public class TicketServiceTest {
      * Verifies that a ticket can be canceled and the seat becomes available again.
      */
     @Test
-    void cancelTicketTest() {
+    void testCancelTicket() {
         Passenger passenger = new Passenger("John", "Doe", 30, "Male", 0, "john.doe@example.com");
         Ticket ticket = ticketService.purchaseTicket(passenger);
 
@@ -79,7 +79,7 @@ public class TicketServiceTest {
      * Verifies that a ticket's seat can be modified successfully.
      */
     @Test
-    void modifySeatTest() {
+    void testModifySeat() {
         Passenger passenger = new Passenger("Jane", "Doe", 28, "Female", 0, "jane.doe@example.com");
         Ticket ticket = ticketService.purchaseTicket(passenger);
         String newSeat = "B2";
@@ -94,7 +94,7 @@ public class TicketServiceTest {
      * Verifies that the available seats are retrieved correctly and updated after ticket purchase.
      */
     @Test
-    void getAvailableSeatsTest() {
+    void testGetAvailableSeats() {
         Set<String> availableSeatsA = ticketService.getAvailableSeats("A");
         assertEquals(50, availableSeatsA.size());
 
@@ -109,7 +109,7 @@ public class TicketServiceTest {
      * Verifies that passengers in a specific section can be viewed correctly.
      */
     @Test
-    void viewSeatsTest() {
+    void testViewSeats() {
         Passenger passenger = new Passenger("John", "Doe", 30, "Male", 0, "john.doe@example.com");
         ticketService.purchaseTicket(passenger);
         List<Passenger> passengersInA = ticketService.viewSeats("A");
@@ -123,7 +123,7 @@ public class TicketServiceTest {
      * Verifies that the existence of a passenger can be checked correctly.
      */
     @Test
-    void checkIfPassengerExistsPositiveTest() {
+    void testCheckIfPassengerExistsPositive() {
         Passenger passenger = new Passenger("John", "Doe", 30, "Male", 0, "john.doe@example.com");
         ticketService.purchaseTicket(passenger);
 
@@ -137,7 +137,7 @@ public class TicketServiceTest {
      * Verifies that the method correctly identifies a non-existent passenger.
      */
     @Test
-    void checkIfPassengerExistsNegativeTest() {
+    void testCheckIfPassengerExistsNegative() {
         assertFalse(ticketService.checkIfPassengerExists(2L));
     }
 }

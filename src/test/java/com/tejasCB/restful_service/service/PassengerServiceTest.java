@@ -24,8 +24,6 @@ public class PassengerServiceTest {
     @InjectMocks
     private PassengerService passengerService; // Injecting TicketService into PassengerService Instance
 
-    private Map<Long, Passenger> passengerDetails;
-
     /**
      * Sets up the test environment before each test method.
      * Initializes mocks and sample passenger data.
@@ -34,7 +32,7 @@ public class PassengerServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        passengerDetails = new HashMap<>();
+        Map<Long, Passenger> passengerDetails = new HashMap<>();
         passengerDetails.put(1L, new Passenger("John", "Doe", 30, "Male", 1L, "john.doe@example.com"));
         passengerDetails.put(2L, new Passenger("Jane", "Doe", 28, "Female", 2L, "jane.doe@example.com"));
 
@@ -46,7 +44,7 @@ public class PassengerServiceTest {
      * Verifies that a passenger is correctly retrieved by their ID.
      */
     @Test
-    void getPassengerPositiveTest() {
+    void testGetPassengerPositive() {
         Passenger passenger = passengerService.getPassenger(1L);
         assertNotNull(passenger);
         assertEquals("John", passenger.getFirstName());
@@ -61,7 +59,7 @@ public class PassengerServiceTest {
      * Verifies that null is returned for a non-existent passenger.
      */
     @Test
-    void getPassengerNegativeTest() {
+    void testGetPassengerNegative() {
         Passenger nonExistentPassenger = passengerService.getPassenger(3L);
         assertNull(nonExistentPassenger);
     }
