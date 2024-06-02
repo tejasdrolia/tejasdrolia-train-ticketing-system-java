@@ -33,12 +33,7 @@ public class PassengerController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Passenger with ID " + id + " not found.");
         }
 
-        List<Long> pnrs = ticketService.getPnrsByPassengerId(id);
-        List<Ticket> tickets = new ArrayList<>();
-        for (Long pnr : pnrs) {
-            tickets.add(ticketService.getTicketDetail(pnr));
-        }
-
+        List<Ticket> tickets = ticketService.getAllTickets(id);
         return ResponseEntity.ok(tickets);
     }
 

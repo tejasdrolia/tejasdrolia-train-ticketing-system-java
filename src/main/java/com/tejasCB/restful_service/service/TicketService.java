@@ -5,7 +5,6 @@ import com.tejasCB.restful_service.model.Ticket;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 
 
 @Service
@@ -152,6 +151,25 @@ public class TicketService {
             throw e;
         } catch (Exception e) {
             throw new RuntimeException("Error modifying seat for PNR " + pnr, e);
+        }
+    }
+
+    /**
+     * returns a list of all Tickets associated  with a passenger
+     * @param passengerId the ID of the passenger
+     * @return List of Tickets
+     */
+
+    public List<Ticket> getAllTickets(long passengerId) {
+        List<Ticket> tickets = new ArrayList<>();
+        try {
+            List<Long> pnrs = getPnrsByPassengerId(passengerId);
+            for (Long pnr : pnrs) {
+                tickets.add(getTicketDetail(pnr));
+            }
+            return tickets;
+        } catch (Exception e) {
+            throw new RuntimeException("Error retrieving tickets for passenger ID " + passengerId, e);
         }
     }
 

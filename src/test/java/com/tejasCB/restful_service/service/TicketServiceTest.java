@@ -24,6 +24,7 @@ public class TicketServiceTest {
      * Sets up the test environment before each test method.
      * Initializes mocks and creates a new instance of TicketService.
      */
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -34,6 +35,7 @@ public class TicketServiceTest {
      * Tests the purchaseTicket method of TicketService.
      * Verifies that a ticket is successfully purchased and associated methods work as expected.
      */
+
     @Test
     void testPurchaseTicket() {
         Passenger passenger = new Passenger("John", "Doe", 30, "Male", 0,"john.doe@example.com");
@@ -49,20 +51,37 @@ public class TicketServiceTest {
      * Tests the getTicketDetail method of TicketService.
      * Verifies that ticket details can be retrieved correctly.
      */
+
     @Test
     void testGetTicketDetail() {
         Passenger passenger = new Passenger("Jane", "Doe", 28, "Female", 0, "jane.doe@example.com");
         Ticket purchasedTicket = ticketService.purchaseTicket(passenger);
         Ticket ticket = ticketService.getTicketDetail(purchasedTicket.getPnr());
-
         assertNotNull(ticket);
         assertEquals(purchasedTicket.getPnr(), ticket.getPnr());
+    }
+
+    /**
+     * Tests the getTicketDetail method of TicketService.
+     * Verifies that an exception is thrown when a non-existent PNR is provided.
+     */
+
+    @Test
+    void testGetTicketDetailNonExistentPnr() {
+        long nonExistentPnr = 999L; // Assuming this PNR does not exist in the repository
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            ticketService.getTicketDetail(nonExistentPnr);
+        });
+        String expectedMessage = "PNR not found: " + nonExistentPnr;
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     /**
      * Tests the cancelTicket method of TicketService.
      * Verifies that a ticket can be canceled and the seat becomes available again.
      */
+
     @Test
     void testCancelTicket() {
         Passenger passenger = new Passenger("John", "Doe", 30, "Male", 0, "john.doe@example.com");
@@ -78,6 +97,7 @@ public class TicketServiceTest {
      * Tests the modifySeat method of TicketService.
      * Verifies that a ticket's seat can be modified successfully.
      */
+
     @Test
     void testModifySeat() {
         Passenger passenger = new Passenger("Jane", "Doe", 28, "Female", 0, "jane.doe@example.com");
@@ -90,9 +110,29 @@ public class TicketServiceTest {
     }
 
     /**
+     * Tests the getTicketDetail method of TicketService.
+     * Verifies that an exception is thrown when a non-existent Seat is provided.
+     */
+
+    @Test
+    void testModifySeatNonExistentSeat() {
+        Passenger passenger = new Passenger("Jane", "Doe", 28, "Female", 0, "jane.doe@example.com");
+        Ticket ticket = ticketService.purchaseTicket(passenger);
+        String nonExistentSeat = "B90"; // Providing a non-existent seat
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            ticketService.modifySeat(ticket.getPnr(), nonExistentSeat);
+        });
+        String expectedMessage = "Seat not available: " + nonExistentSeat;
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    /**
      * Tests the getAvailableSeats method of TicketService.
      * Verifies that the available seats are retrieved correctly and updated after ticket purchase.
      */
+
     @Test
     void testGetAvailableSeats() {
         Set<String> availableSeatsA = ticketService.getAvailableSeats("A");
@@ -104,10 +144,29 @@ public class TicketServiceTest {
         assertEquals(49, newAvailableSeatsA.size());
     }
 
+
+    /**
+     * Tests the getAvailableSeats method of TicketService.
+     * Verifies that an exception is thrown when a non-existent Section is provided.
+     */
+
+    @Test
+    void testGetAvailableSeatsNonExistentSection() {
+        String nonExistentSection = "C"; //Setting non-existent section
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            ticketService.getAvailableSeats(nonExistentSection);
+        });
+        String expectedMessage = "Invalid section: " + nonExistentSection;
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+
     /**
      * Tests the viewSeats method of TicketService.
      * Verifies that passengers in a specific section can be viewed correctly.
      */
+
     @Test
     void testViewSeats() {
         Passenger passenger = new Passenger("John", "Doe", 30, "Male", 0, "john.doe@example.com");
@@ -122,6 +181,7 @@ public class TicketServiceTest {
      * Tests the checkIfPassengerExists method of TicketService.
      * Verifies that the existence of a passenger can be checked correctly.
      */
+
     @Test
     void testCheckIfPassengerExistsPositive() {
         Passenger passenger = new Passenger("John", "Doe", 30, "Male", 0, "john.doe@example.com");
@@ -130,12 +190,12 @@ public class TicketServiceTest {
         assertTrue(ticketService.checkIfPassengerExists(1L));
     }
 
-    // Negative Tests
 
     /**
      * Tests the checkIfPassengerExists method of TicketService.
      * Verifies that the method correctly identifies a non-existent passenger.
      */
+
     @Test
     void testCheckIfPassengerExistsNegative() {
         assertFalse(ticketService.checkIfPassengerExists(2L));

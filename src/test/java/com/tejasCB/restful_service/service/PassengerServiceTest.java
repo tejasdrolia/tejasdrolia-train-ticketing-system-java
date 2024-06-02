@@ -2,6 +2,7 @@ package com.tejasCB.restful_service.service;
 
 import com.tejasCB.restful_service.model.Passenger;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -19,10 +20,10 @@ import static org.mockito.Mockito.when;
 public class PassengerServiceTest {
 
     @Mock
-    private TicketService ticketService; // Inserting instances of TicketService for mocking
+    private TicketService ticketService;
 
     @InjectMocks
-    private PassengerService passengerService; // Injecting TicketService into PassengerService Instance
+    private PassengerService passengerService;
 
     /**
      * Sets up the test environment before each test method.
@@ -30,7 +31,7 @@ public class PassengerServiceTest {
      */
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.openMocks(this); // Initialization
 
         Map<Long, Passenger> passengerDetails = new HashMap<>();
         passengerDetails.put(1L, new Passenger("John", "Doe", 30, "Male", 1L, "john.doe@example.com"));
@@ -44,6 +45,7 @@ public class PassengerServiceTest {
      * Verifies that a passenger is correctly retrieved by their ID.
      */
     @Test
+    @DisplayName("Get the details of existing Passenger")
     void testGetPassengerPositive() {
         Passenger passenger = passengerService.getPassenger(1L);
         assertNotNull(passenger);

@@ -5,7 +5,7 @@ public class Ticket {
     private final Passenger passenger;
     private final String from;
     private final String to;
-    private  double price;
+    private final double price;
     private  String seat;
 
     public Ticket(long pnr, Passenger passenger, String from, String to, double price, String seat) {
