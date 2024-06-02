@@ -19,10 +19,10 @@ import static org.mockito.Mockito.when;
 public class PassengerServiceTest {
 
     @Mock
-    private TicketService ticketService;//Inserting instances of TicketService for mocking
+    private TicketService ticketService; // Inserting instances of TicketService for mocking
 
     @InjectMocks
-    private PassengerService passengerService;//Injecting TicketService into PassengerService Instance
+    private PassengerService passengerService; // Injecting TicketService into PassengerService Instance
 
     private Map<Long, Passenger> passengerDetails;
 
@@ -43,18 +43,25 @@ public class PassengerServiceTest {
 
     /**
      * Tests the getPassenger method of PassengerService.
-     * Verifies that a passenger is correctly retrieved by their ID and that null is returned for a non-existent passenger.
+     * Verifies that a passenger is correctly retrieved by their ID.
      */
     @Test
-    void getPassengerTest() {
+    void getPassengerPositiveTest() {
         Passenger passenger = passengerService.getPassenger(1L);
         assertNotNull(passenger);
         assertEquals("John", passenger.getFirstName());
         assertEquals(30, passenger.getAge());
-        assertEquals("Doe",passenger.getLastName());
-        assertEquals("Male",passenger.getGender());
-        assertEquals("john.doe@example.com",passenger.getEmail());
+        assertEquals("Doe", passenger.getLastName());
+        assertEquals("Male", passenger.getGender());
+        assertEquals("john.doe@example.com", passenger.getEmail());
+    }
 
+    /**
+     * Tests the getPassenger method of PassengerService.
+     * Verifies that null is returned for a non-existent passenger.
+     */
+    @Test
+    void getPassengerNegativeTest() {
         Passenger nonExistentPassenger = passengerService.getPassenger(3L);
         assertNull(nonExistentPassenger);
     }

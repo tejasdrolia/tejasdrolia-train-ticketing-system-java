@@ -123,11 +123,21 @@ public class TicketServiceTest {
      * Verifies that the existence of a passenger can be checked correctly.
      */
     @Test
-    void checkIfPassengerExistsTest() {
+    void checkIfPassengerExistsPositiveTest() {
         Passenger passenger = new Passenger("John", "Doe", 30, "Male", 0, "john.doe@example.com");
         ticketService.purchaseTicket(passenger);
 
         assertTrue(ticketService.checkIfPassengerExists(1L));
+    }
+
+    // Negative Tests
+
+    /**
+     * Tests the checkIfPassengerExists method of TicketService.
+     * Verifies that the method correctly identifies a non-existent passenger.
+     */
+    @Test
+    void checkIfPassengerExistsNegativeTest() {
         assertFalse(ticketService.checkIfPassengerExists(2L));
     }
 }
